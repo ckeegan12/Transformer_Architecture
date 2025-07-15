@@ -1,15 +1,18 @@
-import torch
-import torch.nn as nn
+import numpy as np
+from tensorflow.keras.preprocessing.text import one_hot
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import sequential
+from tensorflow.keras.layers import Flatten
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Embedding
 
-class WordEmbedding:
-    def __init__(self, df, vocab_size, weights):
-        self.df = df
+class Word_Embedding:
+    def __init__(self, vacab_size, tokens, token_window, d_model, df, encoded_reviews):
         self.vocab_size = vocab_size
-        self.weights = weights
+        self.tokens = tokens
+        self.d_model = d_model
+        self.df = df
+        self.encoded_words = [one_hot(i, vocab_size) for i in len(df)]
 
-    def we(self):
-        embedding_dim = 384
-        max_norm = 1.0
-        embedding_vector = nn.Embedding(num_embeddings=self.vocab_size, embedding_dim=embedding_dim, 
-                                        padding_idx=None, max_norm=max_norm, _weight=self.weights, btype=torch.float32)
-        return embedding_vector
+    def WE(self)
+        padded_words = pad_sequence(encoded_words, maxlen=token_window, padding='post')
