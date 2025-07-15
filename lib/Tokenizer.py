@@ -7,7 +7,7 @@ class Word_Tokenizer:
         self.tokenizer = RegexpTokenizer(r'\w+')
 
     def Tokenize(self):
-        tokens = tokenizer.tokenize(self.text)
+        tokens = self.tokenizer.tokenize(self.text)
         # Normalize tokens
         normalized_tokens = [token.lower() for token in tokens]
         # Add start and stop tokens
