@@ -1,1 +1,22 @@
+from Scaled_Dot_Product_att import Scaled_Dot_Product_att
+import numpy as np
 
+class MultiHeadAttention(nn.module):
+    def __init__(self, d_model, num_heads):
+        self.num_heads = num_heads
+        self.d_model = d_model
+        self.d_k = d_model // num_heads
+        self.d_v = d_model // num_heads
+        self.W_q = nn.Linear(d_model, d_model)
+        self.W_k = nn.Linear(d_model, d_model)
+        self.W_v = nn.Linear(d_model, d_model)
+        self.W_o = nn.Linear(d_model, d_model)
+        self.attention = Scaled_Dot_Product_att(self.d_k)
+
+    def att(self, Query, Key, Value):
+        Q = self.W_q(Query).view(batch_size, -1, self.num_heads, self.d_k).transpose(1, 2)
+        K = self.W_k(Key).view(batch_size, -1, self.num_heads, self.d_k).transpose(1, 2)
+        V = self.W_v(Value).view(batch_size, -1, self.num_heads, self.d_k).transpose(1, 2)
+
+        attn = self.attention(Q, K, V)
+        
