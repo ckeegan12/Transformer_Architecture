@@ -1,0 +1,13 @@
+import numpy as np
+import scipy
+import math
+from scipy.special import softmax
+
+class Scaled_Dot_Product_att:
+
+    def __init__(self, d_k):
+        self.d_k = d_k
+
+    def att(self, Query, Key, Value)
+        att = np.matmul(softmax(np.matmul(Query, Key.T) / math.sqrt(self.d_k)), Value)
+        return att
